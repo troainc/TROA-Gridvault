@@ -28,6 +28,21 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 - **Operations-ready** — optional player quotas, categories, missing-grid alerts, pre-cleanup safeguards, pre-wipe reports, and controlled migration tools.
 - **Host friendly** — designed for Windows, Linux, and AMP-hosted Torch servers; no desktop UI required.
 
+## Complete Feature List
+
+- **No-UI server plugin:** command/config-driven Torch plugin; no player-side mod, terminal block, desktop app, or web panel.
+- **Automatic and manual backups:** scheduled passes, `storeall`, single-grid capture, pre-restart safeguard, and Essentials-friendly `precleanup` protection.
+- **Selectable grid coverage:** block minimum, name exclusions, optional NPC grids, and optional static bases/stations.
+- **Validated storage:** atomic writes, SBC read-back checks, SHA-256 validation, retention, bounded file writes, readable names, and timestamped folders.
+- **Steam-ID-first vaults:** player recovery remains tied to Steam ID through world wipes and Keen identity changes.
+- **Historical grid finder:** tracks player grid names after renames, entity IDs, first/last seen time, block count, categories, and retained-backup availability.
+- **Player tools:** players can list history, request by name or ID, and tag grids as Ship, Base, Mining, Combat, Other, or None.
+- **Safe restoration:** preview and audit backups; restore near an admin, at GPS, or at original coordinates with collision and duplicate protection.
+- **Ownership choices:** configure Player, Original, or Neutral ownership after a recovery.
+- **Server-owner controls:** optional player storage/count quotas, one-time missing-grid alerts, history-only request alerts, health reports, and live configuration reload.
+- **Wipes and migrations:** pre-wipe reports, pre-cleanup safeguards, and controlled per-player export/import folders.
+- **Standalone Discord audits:** optional webhook embeds for every major operation with clear colors, fields, timestamps, and GridVault footer branding. TROA Discord Monitor is not required.
+
 ## Requirements
 
 - A working Space Engineers Torch server.
