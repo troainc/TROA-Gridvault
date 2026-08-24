@@ -155,6 +155,34 @@ For migration, run `!gridvault export <steam-id>` on the source server, copy the
 5. Keep webhook URLs private.
 6. Keep more than one external copy of critical server backups.
 
+## Migration Workflow
+
+### Legacy ALE GridBackup to GridVault
+
+Use the separate `MigrationTools/GridBackupToGridVault` utility when moving from the discontinued ALE GridBackup plugin. It recognizes the old layout:
+
+```text
+GridBackups/<owner-folder>/<grid-name>_<entity-id>/<timestamp>.sbc
+```
+
+and copies each valid backup into GridVault's normal timestamped vault layout with `metadata.xml`. The legacy vault is never moved, changed, or deleted.
+
+1. Build the standalone migrator with `MigrationTools/GridBackupToGridVault/build.ps1`.
+2. Run its `--dry-run` command before writing data.
+3. If old GridBackup used `UseSteamId=false`, prepare an identity-to-Steam-ID CSV from `identity-map.example.csv`. This is required to attach a legacy player vault to the correct wipe-safe GridVault `Players/<steam-id>` folder.
+4. Run the same command without `--dry-run` to copy backups and produce `GridBackupMigrationReport-*.csv`.
+5. Start Torch and verify migrated players with `!gridvault records <steam-id>` and `!gridvault audit <steam-id>` before a live restore.
+
+When old folders already use 17-digit Steam IDs, no mapping file is needed. Unmapped Keen identity folders are skipped by default; `--include-unmapped` deliberately imports them under `KeenIdentities` for staff review without assigning them to a player.
+
+### GridVault Server-to-Server Transfer
+
+1. Run `!gridvault export <steam-id>` on the old server.
+2. Copy the created folder from `TROAGridVaultBackups/Exports` to `TROAGridVaultBackups/Imports/<folder-name>` on the destination server.
+3. Run `!gridvault import <steam-id> <folder-name>` on the destination server.
+4. Use `!gridvault records <steam-id>` and `!gridvault preview` before restoring.
+
+
 ## Known Scope
 
 Connected mechanical and connector grid grouping is not yet enabled. It will be added only after capture and restore behavior is verified against the current Keen API.
