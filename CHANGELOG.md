@@ -1,3 +1,12 @@
+# v0.2.2 - Player Grid History and Friendly Requests
+
+- Added a Steam-ID-backed player grid history catalog under `Players/<steam-id>/GridHistory`.
+- Tracks qualifying player grids with entity IDs, known names after renames, first/last observed time, and block count.
+- `!gridvault mine` now shows one historical grid entry at a time, including retained-backup status.
+- `!gridvault request` now accepts either a grid ID or a grid name; quote names containing spaces.
+- Exact name matching is preferred; partial names only work when they identify one grid.
+- Qualifying grids remain visible in player history even when the backup write queue is temporarily full.
+
 # v0.2.1 - Storage and Configuration Cleanup
 
 - Changed new backup folders to the clean `Players/<steam-id>/<timestamp>` layout.

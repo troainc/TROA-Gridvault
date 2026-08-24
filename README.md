@@ -19,6 +19,7 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 ## Why Use Gridvault
 
 - **Steam-ID-first backups** — player backup folders remain useful after world wipes and Keen identity changes.
+- **Grid history catalog** — qualifying player grids are tracked by Steam ID with known names, IDs, last-seen time, and retained-backup status.
 - **Readable files** — each backup is stored in a timestamp folder and uses the grid's full name as the SBC filename.
 - **Safer recovery** — preview a backup before restoring it, then restore near an admin, at exact GPS coordinates, or at the saved location.
 - **Collision protection** — restores use a conservative grid-size safety radius and refuse locations that are occupied.
@@ -49,12 +50,14 @@ All Gridvault commands are issued in the **Space Engineers in-game chat** unless
 ```text
 TROAGridVaultBackups/
   Players/<steam-id-64>/<utc-timestamp>/<full-grid-name>.sbc
+  Players/<steam-id-64>/GridHistory/<grid-entity-id>.xml
   KeenIdentities/<keen-identity-id>/<utc-timestamp>/<full-grid-name>.sbc
   Unowned/<utc-timestamp>/<full-grid-name>.sbc
   RestoreRequests/
 ```
 
 - `Players` is the preferred location for player-owned grids.
+- `GridHistory` records each qualifying player grid seen by GridVault, including names after renames. It helps players identify lost grids; it is not a substitute for a retained SBC backup.
 - `KeenIdentities` is used when a grid has a Keen identity but no resolved Steam owner.
 - `Unowned` contains truly ownerless grids.
 - Existing older backup folders remain readable and are not moved automatically.
@@ -65,8 +68,8 @@ TROAGridVaultBackups/
 
 | Command | Use |
 |---|---|
-| `!gridvault mine` | Lists the player's own backups. |
-| `!gridvault request <grid-id> [revision]` | Requests recovery of a backed-up grid; staff approval is required. |
+| `!gridvault mine` | Lists historical player grids once each with the latest name, ID, revision count, date, and block count. |
+| `!gridvault request <grid-name-or-id> [revision]` | Requests recovery by grid name or ID; quote names containing spaces, such as `!gridvault request "Mining Rover"`. Staff approval is required. |
 
 ### Server Administrators
 
