@@ -6,6 +6,16 @@ TROA-Gridvault is a no-UI, command-driven Torch plugin that protects Space Engin
 
 This public repository contains **release packages and documentation only**. Source code, private configuration, server data, and webhook URLs are not included.
 
+## No UI — Deliberately Command Driven
+
+Gridvault does **not** install an in-game screen, terminal block, client mod, desktop application, or web panel. Every action is handled through the generated XML configuration and `!gridvault` commands in the Space Engineers in-game chat. This makes setup consistent for Windows, Linux, and AMP-hosted Torch servers.
+
+- **Players:** `!gridvault mine` and `!gridvault request`.
+- **Administrators:** backup, verification, restore, cleanup, and webhook commands under `!gridvault`.
+- **Torch:** Gridvault runs server-side as a Torch plugin; no player-side install is required.
+- **Discord:** optional staff-only audit embeds use a direct Discord webhook. TROA Discord Monitor is not required.
+- **Discord-to-Torch bridges:** if a server already has a secure command bridge, staff can forward supported administrator commands such as `!gridvault recoverat ...`. Gridvault does not create Discord slash commands or mirror player chat.
+
 ## Why Use Gridvault
 
 - **Steam-ID-first backups** — player backup folders remain useful after world wipes and Keen identity changes.
@@ -31,6 +41,8 @@ This public repository contains **release packages and documentation only**. Sou
 4. Start Torch once; it creates `TROAGridVault.cfg` with explanations for every setting.
 5. Edit the config, save it, and use `!gridvault reload` in game.
 6. Test `!gridvault storeall`, `!gridvault records <steam-id>`, and a safe non-production recovery before relying on it live.
+
+All Gridvault commands are issued in the **Space Engineers in-game chat** unless a server owner deliberately forwards an administrator command through an existing, secured Torch command bridge.
 
 ## Backup Folder Layout
 
