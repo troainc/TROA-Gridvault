@@ -1,3 +1,8 @@
+# v0.3.1 - Player Command Access Hotfix
+
+- Fixed `!gridvault help` so every in-game player can view the player command guidance.
+- `!gridvault mine`, `!gridvault request`, and `!gridvault category` remain available to players; administrator actions stay protected.
+
 # v0.3.0 - Vault Operations and Audit Upgrade
 
 - Added optional per-player backup count and vault storage limits.
