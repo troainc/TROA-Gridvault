@@ -159,7 +159,7 @@ For migration, run `!gridvault export <steam-id>` on the source server, copy the
 
 ### Legacy ALE GridBackup to GridVault
 
-Use the separate `MigrationTools/GridBackupToGridVault` utility when moving from the discontinued ALE GridBackup plugin. It recognizes the old layout:
+Use the separate `MigrationTools/GridBackupToGridVault` utility when moving from the ALE GridBackup plugin. It recognizes the old layout:
 
 ```text
 GridBackups/<owner-folder>/<grid-name>_<entity-id>/<timestamp>.sbc
