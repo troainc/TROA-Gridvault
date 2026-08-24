@@ -1,3 +1,11 @@
+# v0.3.0 - Vault Operations and Audit Upgrade
+
+- Added optional per-player backup count and vault storage limits.
+- Added optional missing-grid alerts, player categories, and history-only request alerts.
+- Added Essentials-friendly `precleanup`, pre-wipe reports, and controlled migration export/import folders.
+- Added Player, Original, and Neutral restored ownership modes.
+- Redesigned Discord audit embeds with color states, fields, timestamps, and GridVault footer branding.
+
 # v0.2.2 - Player Grid History and Friendly Requests
 
 - Added a Steam-ID-backed player grid history catalog under `Players/<steam-id>/GridHistory`.

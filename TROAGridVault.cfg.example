@@ -33,6 +33,16 @@
   <EnablePlayerRecoveryRequests>true</EnablePlayerRecoveryRequests>
   <!-- Allows !gridvault safeguard before an external restart command is sent. -->
   <EnablePreRestartBackup>true</EnablePreRestartBackup>
+  <!-- Allows players to label grid history entries as Ship, Base, Mining, Combat, or Other. -->
+  <EnablePlayerGridCategories>true</EnablePlayerGridCategories>
+  <!-- Maximum retained backup revisions for one player. Set 0 for no count limit. -->
+  <MaximumBackupsPerPlayer>0</MaximumBackupsPerPlayer>
+  <!-- Maximum retained SBC storage for one player in megabytes. Set 0 for no storage limit. -->
+  <MaximumPlayerVaultMegabytes>0</MaximumPlayerVaultMegabytes>
+  <!-- Sends one audit alert when a cataloged grid has not been observed for this many minutes. Set 0 to disable. -->
+  <MissingGridAlertMinutes>0</MissingGridAlertMinutes>
+  <!-- Player assigns the current Steam owner; Original uses saved Keen ownership; Neutral removes ownership. -->
+  <RestoreOwnershipMode>Player</RestoreOwnershipMode>
   <!-- Grid names containing any listed text are skipped. Add <string>Starter</string> entries if needed. -->
   <ExcludedGridNamePatterns></ExcludedGridNamePatterns>
   <!-- Optional Discord audit feed. Set true and paste the complete Discord webhook URL below. -->

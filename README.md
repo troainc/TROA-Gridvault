@@ -25,6 +25,7 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 - **Collision protection** — restores use a conservative grid-size safety radius and refuse locations that are occupied.
 - **Player requests** — players can view their own backups and ask staff for a restore without receiving admin rights.
 - **Audit-ready** — optional Discord embeds track backups, restores, verification, failures, and player requests.
+- **Operations-ready** — optional player quotas, categories, missing-grid alerts, pre-cleanup safeguards, pre-wipe reports, and controlled migration tools.
 - **Host friendly** — designed for Windows, Linux, and AMP-hosted Torch servers; no desktop UI required.
 
 ## Requirements
@@ -70,6 +71,7 @@ TROAGridVaultBackups/
 |---|---|
 | `!gridvault mine` | Lists historical player grids once each with the latest name, ID, revision count, date, and block count. |
 | `!gridvault request <grid-name-or-id> [revision]` | Requests recovery by grid name or ID; quote names containing spaces, such as `!gridvault request "Mining Rover"`. Staff approval is required. |
+| `!gridvault category <grid-name-or-id> <Ship|Base|Mining|Combat|Other|None>` | Labels a personal grid-history entry. |
 
 ### Server Administrators
 
@@ -81,11 +83,15 @@ TROAGridVaultBackups/
 | `!gridvault storeall` | Backs up qualifying server grids. |
 | `!gridvault archive` | Alias for `storeall`. |
 | `!gridvault safeguard` | Starts a backup pass before an external restart. |
+| `!gridvault precleanup` | Starts a backup pass before an Essentials or other configured cleanup. |
+| `!gridvault prewipe [note]` | Creates a pre-wipe report and starts a backup pass. |
 | `!gridvault capture <grid-id>` | Backs up one grid immediately. |
 | `!gridvault records <steam-id> [grid]` | Lists grid history and revisions. |
 | `!gridvault preview <steam-id> <grid-id> [revision]` | Shows backup details and original GPS. |
 | `!gridvault audit <steam-id>` | Verifies backup hashes and SBC readability. |
 | `!gridvault health` | Shows storage usage, incomplete entries, and pending writes. |
+| `!gridvault export <steam-id>` | Copies a player vault into the migration export folder. |
+| `!gridvault import <steam-id> <folder-name>` | Imports a staged migration folder from GridVault Imports. |
 | `!gridvault recover <steam-id> <grid-id> [revision]` | Restores near an in-game admin. |
 | `!gridvault recoverat <steam-id> <grid-id> <x> <y> <z> [revision]` | Restores at exact GPS coordinates; suitable for a Discord-to-Torch bridge. |
 | `!gridvault recoverorigin <steam-id> <grid-id> [revision]` | Restores at the saved location when it is clear. |
@@ -105,13 +111,24 @@ TROAGridVaultBackups/
 | `IncludeNpcGrids` | `false` | NPC grids are not stored unless explicitly enabled. |
 | `IncludeStaticGrids` | `false` | Bases and static stations are not stored unless explicitly enabled. |
 | `EnablePlayerRecoveryRequests` | `true` | Players may request; only admins approve. |
+| `EnablePlayerGridCategories` | `true` | Players may label history entries. |
+| `MaximumBackupsPerPlayer` | `0` | Optional retained-backup cap; `0` is unlimited. |
+| `MaximumPlayerVaultMegabytes` | `0` | Optional player storage cap; `0` is unlimited. |
+| `MissingGridAlertMinutes` | `0` | Optional one-time missing-grid alert; `0` disables it. |
+| `RestoreOwnershipMode` | `Player` | `Player`, `Original`, or `Neutral` after recovery. |
 | `EnableAuditWebhook` | `false` | Webhook traffic is opt-in. |
 
 ## Discord Audit Embeds
 
-Set `EnableAuditWebhook` to `true` and add a full Discord webhook URL to `AuditWebhookUrl` in the generated configuration. Use a private staff-only channel: embeds can include Steam IDs, grid IDs/names, timestamps, verification results, and approved GPS locations.
+Set `EnableAuditWebhook` to `true` and add a full Discord webhook URL to `AuditWebhookUrl` in the generated configuration. Use a private staff-only channel: embeds can include Steam IDs, grid IDs/names, timestamps, verification results, and approved GPS locations. GridVault embeds use colored outcome states, structured fields, timestamps, and a consistent audit footer.
 
 With `SendStartupWebhookTest=true`, Gridvault posts one green online test embed when a valid webhook is first configured. Run `!gridvault webhook test` for another test.
+
+## Essentials and Migration
+
+Essentials cleanup is external to GridVault. Configure the same secured command workflow to run `!gridvault precleanup` about ten minutes before cleanup; GridVault then queues a full backup pass and posts an audit event. `MissingGridAlertMinutes` can provide a one-time follow-up alert when a cataloged grid is no longer observed.
+
+For migration, run `!gridvault export <steam-id>` on the source server, copy the created export folder into `Imports/<folder-name>` on the destination vault, then run `!gridvault import <steam-id> <folder-name>`. Review records and previews before restoring.
 
 ## Safety Checklist
 
