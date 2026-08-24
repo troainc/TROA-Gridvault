@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- TROA-Gridvault configuration. Save changes, then run !gridvault reload in-game. -->
+<TROAGridVaultConfig>
+  <!-- Master switch for automatic scheduled backups. Manual storeall remains available to admins. -->
+  <Enabled>true</Enabled>
+  <!-- Leave empty for the default plugin folder: TROAGridVaultBackups. Use an absolute shared path for external storage. -->
+  <VaultRootPath></VaultRootPath>
+  <!-- How often the automatic backup pass runs, in minutes. -->
+  <BackupIntervalMinutes>30</BackupIntervalMinutes>
+  <!-- Ignore grids smaller than this block count. -->
+  <MinimumBlocks>25</MinimumBlocks>
+  <!-- Keep this many newest backups for each grid. -->
+  <BackupsPerGrid>12</BackupsPerGrid>
+  <!-- Reserved for daily-retention support; keep the default for now. -->
+  <DailyBackupsPerGrid>7</DailyBackupsPerGrid>
+  <!-- Delete backups older than this many days. -->
+  <RetainDays>30</RetainDays>
+  <!-- Maximum backup file writes waiting in memory. -->
+  <MaximumPendingBackups>8</MaximumPendingBackups>
+  <!-- Number of backup files written at the same time. Keep 1 for lowest server impact. -->
+  <MaximumConcurrentWrites>1</MaximumConcurrentWrites>
+  <!-- Planned connected-grid controls. Leave defaults until the related feature is enabled. -->
+  <IncludeMechanicallyConnectedGrids>true</IncludeMechanicallyConnectedGrids>
+  <IncludeConnectorConnectedGrids>false</IncludeConnectorConnectedGrids>
+  <IncludeProjections>false</IncludeProjections>
+  <!-- Set true only when server bases and other static grids should be backed up. -->
+  <IncludeStaticGrids>false</IncludeStaticGrids>
+  <!-- Set true only when NPC-owned grids should be backed up. -->
+  <IncludeNpcGrids>false</IncludeNpcGrids>
+  <KeepOriginalOwners>true</KeepOriginalOwners>
+  <EnableAutomaticCleanup>true</EnableAutomaticCleanup>
+  <!-- Allow players to submit recovery requests for their own Steam-ID-backed grids. Admin approval is always required. -->
+  <EnablePlayerRecoveryRequests>true</EnablePlayerRecoveryRequests>
+  <!-- Allows !gridvault safeguard before an external restart command is sent. -->
+  <EnablePreRestartBackup>true</EnablePreRestartBackup>
+  <!-- Grid names containing any listed text are skipped. Add <string>Starter</string> entries if needed. -->
+  <ExcludedGridNamePatterns></ExcludedGridNamePatterns>
+  <!-- Optional Discord audit feed. Set true and paste the complete Discord webhook URL below. -->
+  <EnableAuditWebhook>false</EnableAuditWebhook>
+  <AuditWebhookUrl></AuditWebhookUrl>
+  <!-- Sends one green GridVault online test embed after this webhook is first configured. -->
+  <SendStartupWebhookTest>true</SendStartupWebhookTest>
+</TROAGridVaultConfig>

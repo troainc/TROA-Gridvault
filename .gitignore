@@ -1,0 +1,6 @@
+# Keep published release packages and documentation.
+# Never add live server configuration, webhook URLs, logs, or extracted plugin files.
+TROAGridVault.cfg
+*.log
+bin/
+obj/
