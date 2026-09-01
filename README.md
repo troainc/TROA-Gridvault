@@ -1,4 +1,4 @@
-# TROA-Gridvault
+# Gridvault+
 
 ## Modern Grid Backup and Recovery for Space Engineers Torch Servers
 
