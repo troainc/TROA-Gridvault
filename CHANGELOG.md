@@ -1,3 +1,11 @@
+# v0.3.2 - Gridvault+ Runtime Branding
+
+- Changed the default player-facing and in-game runtime name to `Gridvault+`.
+- Added the owner-configurable `DisplayName` setting for chat replies, runtime notices, reports, log prefixes, GPS labels, and Discord audit embeds.
+- Preserved `TROA-Gridvault` and `TROAGridVault` for external repository, package, assembly, configuration-file, namespace, and compatibility identifiers.
+- Migrates empty and exact legacy runtime names to `Gridvault+` while preserving custom server branding.
+- Updated the example configuration and documentation; the plugin remains fully no-UI.
+
 # v0.3.1 - Player Command Access Hotfix
 
 - Fixed `!gridvault help` so every in-game player can view the player command guidance.
