@@ -6,6 +6,12 @@ TROA-Gridvault is a no-UI, command-driven Torch plugin that protects Space Engin
 
 This public repository contains **release packages and documentation only**. Source code, private configuration, server data, and webhook URLs are not included.
 
+## Runtime Branding
+
+The external repository, package, assembly, namespace, and compatibility identifiers remain `TROA-Gridvault` / `TROAGridVault`. Player-facing chat replies, runtime notices, reports, log prefixes, GPS labels, and Discord audit embeds use **Gridvault+** by default.
+
+Server owners can change the runtime name with `<DisplayName>...</DisplayName>` in `TROAGridVault.cfg`, then run `!gridvault reload`. Existing custom names are preserved. Empty values and exact legacy names are migrated to `Gridvault+`. The configured Discord webhook username remains controlled by Discord; Gridvault+ controls the embed content.
+
 ## No UI — Deliberately Command Driven
 
 Gridvault does **not** install an in-game screen, terminal block, client mod, desktop application, or web panel. Every action is handled through the generated XML configuration and `!gridvault` commands in the Space Engineers in-game chat. This makes setup consistent for Windows, Linux, and AMP-hosted Torch servers.
@@ -121,6 +127,7 @@ TROAGridVaultBackups/
 
 | Setting | Default | Reason |
 |---|---:|---|
+| `DisplayName` | `Gridvault+` | Player-facing name used in chat, reports, logs, GPS labels, and Discord audit embeds. |
 | `BackupIntervalMinutes` | `30` | Regular recovery points without constant file writes. |
 | `MinimumBlocks` | `25` | Skips tiny throwaway grids. |
 | `BackupsPerGrid` | `12` | Retains useful recovery history. |
