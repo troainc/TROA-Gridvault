@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- TROA-Gridvault configuration. Save changes, then run !gridvault reload in-game. -->
 <TROAGridVaultConfig>
+  <!-- Player-facing name used in in-game chat, command replies, logs, reports, and Discord audit embeds. -->
+  <DisplayName>Gridvault+</DisplayName>
   <!-- Master switch for automatic scheduled backups. Manual storeall remains available to admins. -->
   <Enabled>true</Enabled>
   <!-- Leave empty for the default plugin folder: TROAGridVaultBackups. Use an absolute shared path for external storage. -->
@@ -48,6 +50,6 @@
   <!-- Optional Discord audit feed. Set true and paste the complete Discord webhook URL below. -->
   <EnableAuditWebhook>false</EnableAuditWebhook>
   <AuditWebhookUrl></AuditWebhookUrl>
-  <!-- Sends one green GridVault online test embed after this webhook is first configured. -->
+  <!-- Sends one green startup test embed after this webhook is first configured. -->
   <SendStartupWebhookTest>true</SendStartupWebhookTest>
 </TROAGridVaultConfig>
