@@ -1,3 +1,11 @@
+# v0.3.3 - Quiet Discord Failure Circuit
+
+- Removed repeated Discord webhook failure messages from the live Torch/game-server console.
+- Added a quiet circuit breaker that pauses delivery for ten minutes after three consecutive failures.
+- Added safe failure count, HTTP status, and pause information to `!gridvault webhook` without exposing the webhook URL.
+- Made `!gridvault webhook test` report when the failure circuit is paused.
+- A successful delivery resets the consecutive-failure circuit; `!gridvault reload` resets it immediately after configuration is corrected.
+
 # v0.3.2 - Gridvault+ Runtime Branding
 
 - Changed the default player-facing and in-game runtime name to `Gridvault+`.
