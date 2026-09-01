@@ -49,6 +49,10 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 - **Wipes and migrations:** pre-wipe reports, pre-cleanup safeguards, and controlled per-player export/import folders.
 - **Standalone Discord audits:** optional webhook embeds for every major operation with clear colors, fields, timestamps, and GridVault footer branding. TROA Discord Monitor is not required.
 
+### Quiet Discord Failure Handling
+
+Gridvault+ does not print Discord webhook delivery failures into the live Torch/game-server console. If Discord rejects three consecutive audit deliveries, the plugin quietly pauses webhook attempts for ten minutes instead of repeating the same error during every backup. Administrators can use `!gridvault webhook` to see a safe failure count, HTTP status, and pause state without revealing the webhook URL. After correcting the webhook, run `!gridvault reload` to reset the pause immediately; a successful delivery also resets the failure circuit.
+
 ## Requirements
 
 - A working Space Engineers Torch server.
