@@ -26,7 +26,7 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 
 - **Steam-ID-first backups** — player backup folders remain useful after world wipes and Keen identity changes.
 - **Grid history catalog** — qualifying player grids are tracked by Steam ID with known names, IDs, last-seen time, and retained-backup status.
-- **Readable files** — each backup is stored in a timestamp folder and uses the grid's full name as the SBC filename.
+- **Readable files** — backups captured together share a readable `MMDDYYYY-HHMMSS/Grids` set, with full grid names and entity IDs for quick identification.
 - **Safer recovery** — preview a backup before restoring it, then restore near an admin, at exact GPS coordinates, or at the saved location.
 - **Collision protection** — restores use a conservative grid-size safety radius and refuse locations that are occupied.
 - **Player requests** — players can view their own backups and ask staff for a restore without receiving admin rights.
@@ -39,7 +39,7 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 - **No-UI server plugin:** command/config-driven Torch plugin; no player-side mod, terminal block, desktop app, or web panel.
 - **Automatic and manual backups:** scheduled passes, `storeall`, single-grid capture, pre-restart safeguard, and Essentials-friendly `precleanup` protection.
 - **Selectable grid coverage:** block minimum, name exclusions, optional NPC grids, and optional static bases/stations.
-- **Validated storage:** atomic writes, SBC read-back checks, SHA-256 validation, retention, bounded file writes, readable names, and timestamped folders.
+- **Validated storage:** atomic writes, SBC read-back checks, SHA-256 validation, retention, bounded file writes, readable names, and grouped timestamp folders.
 - **Steam-ID-first vaults:** player recovery remains tied to Steam ID through world wipes and Keen identity changes.
 - **Historical grid finder:** tracks player grid names after renames, entity IDs, first/last seen time, block count, categories, and retained-backup availability.
 - **Player tools:** players can list history, request by name or ID, and tag grids as Ship, Base, Mining, Combat, Other, or None.
@@ -75,14 +75,23 @@ All Gridvault commands are issued in the **Space Engineers in-game chat** unless
 
 ```text
 TROAGridVaultBackups/
-  Players/<steam-id-64>/<utc-timestamp>/<full-grid-name>.sbc
-  Players/<steam-id-64>/GridHistory/<grid-entity-id>.xml
+  Players/
+    <steam-id-64>/
+      GridHistory/
+        <grid-entity-id>.xml
+      <MMDDYYYY-HHMMSS>/
+        Grids/
+          <full-grid-name>-<grid-entity-id>/
+            <full-grid-name>.sbc
+            metadata.xml
   KeenIdentities/<keen-identity-id>/<utc-timestamp>/<full-grid-name>.sbc
   Unowned/<utc-timestamp>/<full-grid-name>.sbc
   RestoreRequests/
 ```
 
 - `Players` is the preferred location for player-owned grids.
+- New player backups group all grids captured during the same second beneath one readable `MMDDYYYY-HHMMSS/Grids` path.
+- Each stored grid uses a `<full-grid-name>-<grid-entity-id>` folder, keeping names visible while preventing duplicate-name collisions.
 - `GridHistory` records each qualifying player grid seen by GridVault, including names after renames. It helps players identify lost grids; it is not a substitute for a retained SBC backup.
 - `KeenIdentities` is used when a grid has a Keen identity but no resolved Steam owner.
 - `Unowned` contains truly ownerless grids.
@@ -155,7 +164,27 @@ With `SendStartupWebhookTest=true`, Gridvault posts one green online test embed 
 
 Essentials cleanup is external to GridVault. Configure the same secured command workflow to run `!gridvault precleanup` about ten minutes before cleanup; GridVault then queues a full backup pass and posts an audit event. `MissingGridAlertMinutes` can provide a one-time follow-up alert when a cataloged grid is no longer observed.
 
-For migration, run `!gridvault export <steam-id>` on the source server, copy the created export folder into `Imports/<folder-name>` on the destination vault, then run `!gridvault import <steam-id> <folder-name>`. Review records and previews before restoring.
+### ALE GridBackup Migration
+
+`GridBackupToGridVaultMigrator.zip` is a separate administrator utility for the discontinued ALE GridBackup plugin. It recognizes GridBackup's old folder structure and **copies** each valid SBC into the GridVault vault with the metadata GridVault needs. It never moves, deletes, or edits the legacy backup files.
+
+1. Extract the migrator outside your Torch `Plugins` folder.
+2. Run a dry run first:
+
+```powershell
+.\GridBackupToGridVaultMigrator.exe --source "D:\Server\GridBackups" --target "D:\Server\TROAGridVaultBackups" --identity-map ".\identity-map.csv" --dry-run
+```
+
+3. Remove `--dry-run` only after reviewing the result.
+4. Start Torch and run `!gridvault records <steam-id>` and `!gridvault audit <steam-id>` before restoring a migrated grid.
+
+If legacy GridBackup used `UseSteamId=true`, its 17-digit Steam-ID folders migrate automatically. If it used `UseSteamId=false`, complete `identity-map.example.csv` with `legacy-identity,steam-id` mappings. The tool skips unmapped identity folders by default rather than risk assigning grids to the wrong player; `--include-unmapped` imports them under `KeenIdentities` for staff-only review.
+
+The migration output includes a dated CSV report of migrated and skipped backups.
+
+### GridVault Server-to-Server Transfer
+
+For an existing GridVault migration, run `!gridvault export <steam-id>` on the source server, copy the created export folder into `Imports/<folder-name>` on the destination vault, then run `!gridvault import <steam-id> <folder-name>`. Review records and previews before restoring.
 
 ## Safety Checklist
 
