@@ -5,8 +5,10 @@
   <DisplayName>Gridvault+</DisplayName>
   <!-- Master switch for automatic scheduled backups. Manual storeall remains available to admins. -->
   <Enabled>true</Enabled>
-  <!-- Leave empty for the default plugin folder: TROAGridVaultBackups. Use an absolute shared path for external storage. -->
+  <!-- Leave empty for the default plugin folder: TROA-Gridvault-Backups. Use an absolute shared path for external storage. -->
   <VaultRootPath></VaultRootPath>
+  <!-- Timezone for readable backup folder names. Use Local, UTC, Pacific, Mountain, Central, Eastern, Atlantic, Alaska, Hawaii, or an OS timezone ID. -->
+  <BackupFolderTimeZoneId>Local</BackupFolderTimeZoneId>
   <!-- How often the automatic backup pass runs, in minutes. -->
   <BackupIntervalMinutes>30</BackupIntervalMinutes>
   <!-- Ignore grids smaller than this block count. -->
@@ -21,6 +23,14 @@
   <MaximumPendingBackups>8</MaximumPendingBackups>
   <!-- Number of backup files written at the same time. Keep 1 for lowest server impact. -->
   <MaximumConcurrentWrites>1</MaximumConcurrentWrites>
+  <!-- Grids captured per simulation tick during a backup pass. Lower values spread work over more ticks for a smoother server. -->
+  <MaxGridsPerTick>4</MaxGridsPerTick>
+  <!-- Time budget in milliseconds for grid capture each tick. Capture stops when spent and resumes next tick. -->
+  <MaxCaptureMillisecondsPerTick>8</MaxCaptureMillisecondsPerTick>
+  <!-- Skip re-capturing grids whose block count and name are unchanged since their last backup. Greatly reduces server impact and storage. -->
+  <SkipUnchangedGrids>true</SkipUnchangedGrids>
+  <!-- Force a fresh backup of an unchanged grid after this many minutes as a safety refresh. Set 0 to never force. -->
+  <ForceBackupAfterMinutes>1440</ForceBackupAfterMinutes>
   <!-- Planned connected-grid controls. Leave defaults until the related feature is enabled. -->
   <IncludeMechanicallyConnectedGrids>true</IncludeMechanicallyConnectedGrids>
   <IncludeConnectorConnectedGrids>false</IncludeConnectorConnectedGrids>
@@ -43,6 +53,10 @@
   <MaximumPlayerVaultMegabytes>0</MaximumPlayerVaultMegabytes>
   <!-- Sends one audit alert when a cataloged grid has not been observed for this many minutes. Set 0 to disable. -->
   <MissingGridAlertMinutes>0</MissingGridAlertMinutes>
+  <!-- Permanently copy the newest valid backup into Cleanup Grids when a previously observed player grid disappears. -->
+  <EnableCleanupGridPreservation>true</EnableCleanupGridPreservation>
+  <!-- Wait this many minutes before treating a missing live grid as cleanup/deletion. -->
+  <CleanupGridGraceMinutes>10</CleanupGridGraceMinutes>
   <!-- Player assigns the current Steam owner; Original uses saved Keen ownership; Neutral removes ownership. -->
   <RestoreOwnershipMode>Player</RestoreOwnershipMode>
   <!-- Grid names containing any listed text are skipped. Add <string>Starter</string> entries if needed. -->

@@ -24,6 +24,9 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 
 ## Why Use Gridvault
 
+- **Non-blocking backups** — backup passes capture grids a few per tick and perform all disk work on a background thread, so the server no longer freezes while grids are backing up.
+- **Change-aware capture** — grids whose block count and name are unchanged since their last backup are skipped (with a periodic safety refresh), cutting server impact and storage.
+- **Pass telemetry** — `!gridvault overview` reports the last pass (captured, unchanged, filtered, scanned, duration, and slowest grid), also posted to the optional audit webhook.
 - **Steam-ID-first backups** — player backup folders remain useful after world wipes and Keen identity changes.
 - **Grid history catalog** — qualifying player grids are tracked by Steam ID with known names, IDs, last-seen time, and retained-backup status.
 - **Readable files** — backups captured together share a readable `MMDDYYYY-HHMMSS/Grids` set, with full grid names and entity IDs for quick identification.
@@ -37,7 +40,7 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 ## Complete Feature List
 
 - **No-UI server plugin:** command/config-driven Torch plugin; no player-side mod, terminal block, desktop app, or web panel.
-- **Automatic and manual backups:** scheduled passes, `storeall`, single-grid capture, pre-restart safeguard, and Essentials-friendly `precleanup` protection.
+- **Automatic and manual backups:** scheduled passes, `storeall`, confirmed full-world backup, single-grid capture, pre-restart safeguard, and Essentials-friendly `precleanup` protection.
 - **Selectable grid coverage:** block minimum, name exclusions, optional NPC grids, and optional static bases/stations.
 - **Validated storage:** atomic writes, SBC read-back checks, SHA-256 validation, retention, bounded file writes, readable names, and grouped timestamp folders.
 - **Steam-ID-first vaults:** player recovery remains tied to Steam ID through world wipes and Keen identity changes.
@@ -74,16 +77,17 @@ All Gridvault commands are issued in the **Space Engineers in-game chat** unless
 ## Backup Folder Layout
 
 ```text
-TROAGridVaultBackups/
+TROA-Gridvault-Backups/
   Players/
     <steam-id-64>/
       GridHistory/
         <grid-entity-id>.xml
       <MMDDYYYY-HHMMSS>/
         Grids/
-          <full-grid-name>-<grid-entity-id>/
-            <full-grid-name>.sbc
-            metadata.xml
+          <full-grid-name>-<grid-entity-id>.sbc
+          <full-grid-name>-<grid-entity-id>.metadata.xml
+  NPC/<keen-identity-id>/<MMDDYYYY-HHMMSS>/Grids/
+  Cleanup Grids/Players/<steam-id-64>/<MMDDYYYY-HHMMSS>/Grids/
   KeenIdentities/<keen-identity-id>/<utc-timestamp>/<full-grid-name>.sbc
   Unowned/<utc-timestamp>/<full-grid-name>.sbc
   RestoreRequests/
@@ -91,7 +95,9 @@ TROAGridVaultBackups/
 
 - `Players` is the preferred location for player-owned grids.
 - New player backups group all grids captured during the same second beneath one readable `MMDDYYYY-HHMMSS/Grids` path.
-- Each stored grid uses a `<full-grid-name>-<grid-entity-id>` folder, keeping names visible while preventing duplicate-name collisions.
+- Grid SBC and metadata files are listed directly inside `Grids`, keeping every name visible while entity IDs prevent duplicate-name collisions.
+- `NPC` clearly separates NPC-owned grids captured by configured passes or the confirmed full-world override.
+- `Cleanup Grids` permanently preserves the newest valid backup when a previously observed player grid disappears after the configured grace period.
 - `GridHistory` records each qualifying player grid seen by GridVault, including names after renames. It helps players identify lost grids; it is not a substitute for a retained SBC backup.
 - `KeenIdentities` is used when a grid has a Keen identity but no resolved Steam owner.
 - `Unowned` contains truly ownerless grids.
@@ -116,6 +122,7 @@ TROAGridVaultBackups/
 | `!gridvault reload` | Reloads configuration without restarting Torch. |
 | `!gridvault overview` | Shows backup queue and settings. |
 | `!gridvault storeall` | Backs up qualifying server grids. |
+| `!gridvault backupworld confirm` | Backs up every live world grid, bypassing minimum blocks, NPC/static settings, excluded names, quotas, and queue limits for that confirmed pass. Without `confirm`, it only displays a warning. |
 | `!gridvault archive` | Alias for `storeall`. |
 | `!gridvault safeguard` | Starts a backup pass before an external restart. |
 | `!gridvault precleanup` | Starts a backup pass before an Essentials or other configured cleanup. |
@@ -142,8 +149,13 @@ TROAGridVaultBackups/
 |---|---:|---|
 | `DisplayName` | `Gridvault+` | Player-facing name used in chat, reports, logs, GPS labels, and Discord audit embeds. |
 | `BackupIntervalMinutes` | `30` | Regular recovery points without constant file writes. |
+| `BackupFolderTimeZoneId` | `Local` | Timezone for readable backup folders. Supports portable regional aliases and valid Windows or Linux timezone IDs; use `Eastern` for East Coast servers. |
 | `MinimumBlocks` | `25` | Skips tiny throwaway grids. |
 | `BackupsPerGrid` | `12` | Retains useful recovery history. |
+| `SkipUnchangedGrids` | `true` | Skips grids whose block count and name are unchanged since their last backup. |
+| `ForceBackupAfterMinutes` | `1440` | Forces a refresh of an unchanged grid after this many minutes; `0` never forces. |
+| `MaxGridsPerTick` | `4` | Grids captured per simulation tick during a pass; lower spreads work over more ticks. |
+| `MaxCaptureMillisecondsPerTick` | `8` | Per-tick capture time budget; capture resumes next tick when spent. |
 | `IncludeNpcGrids` | `false` | NPC grids are not stored unless explicitly enabled. |
 | `IncludeStaticGrids` | `false` | Bases and static stations are not stored unless explicitly enabled. |
 | `EnablePlayerRecoveryRequests` | `true` | Players may request; only admins approve. |
@@ -151,6 +163,8 @@ TROAGridVaultBackups/
 | `MaximumBackupsPerPlayer` | `0` | Optional retained-backup cap; `0` is unlimited. |
 | `MaximumPlayerVaultMegabytes` | `0` | Optional player storage cap; `0` is unlimited. |
 | `MissingGridAlertMinutes` | `0` | Optional one-time missing-grid alert; `0` disables it. |
+| `EnableCleanupGridPreservation` | `true` | Permanently copies the newest valid backup into `Cleanup Grids` when a player grid disappears. |
+| `CleanupGridGraceMinutes` | `10` | Delay before a missing grid is treated as cleaned up or deleted. |
 | `RestoreOwnershipMode` | `Player` | `Player`, `Original`, or `Neutral` after recovery. |
 | `EnableAuditWebhook` | `false` | Webhook traffic is opt-in. |
 
@@ -172,7 +186,7 @@ Essentials cleanup is external to GridVault. Configure the same secured command 
 2. Run a dry run first:
 
 ```powershell
-.\GridBackupToGridVaultMigrator.exe --source "D:\Server\GridBackups" --target "D:\Server\TROAGridVaultBackups" --identity-map ".\identity-map.csv" --dry-run
+.\GridBackupToGridVaultMigrator.exe --source "D:\Server\GridBackups" --target "D:\Server\TROA-Gridvault-Backups" --identity-map ".\identity-map.csv" --dry-run
 ```
 
 3. Remove `--dry-run` only after reviewing the result.
@@ -218,7 +232,7 @@ When old folders already use 17-digit Steam IDs, no mapping file is needed. Unma
 ### GridVault Server-to-Server Transfer
 
 1. Run `!gridvault export <steam-id>` on the old server.
-2. Copy the created folder from `TROAGridVaultBackups/Exports` to `TROAGridVaultBackups/Imports/<folder-name>` on the destination server.
+2. Copy the created folder from `TROA-Gridvault-Backups/Exports` to `TROA-Gridvault-Backups/Imports/<folder-name>` on the destination server.
 3. Run `!gridvault import <steam-id> <folder-name>` on the destination server.
 4. Use `!gridvault records <steam-id>` and `!gridvault preview` before restoring.
 
