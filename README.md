@@ -172,6 +172,8 @@ TROA-Gridvault-Backups/
 
 Set `EnableAuditWebhook` to `true` and add a full Discord webhook URL to `AuditWebhookUrl` in the generated configuration. Use a private staff-only channel: embeds can include Steam IDs, grid IDs/names, timestamps, verification results, and approved GPS locations. GridVault embeds use colored outcome states, structured fields, timestamps, and a consistent audit footer.
 
+Each backup pass posts a **single summary embed** (captured, unchanged, filtered, scanned, and duration) rather than one embed per grid, and a pass that captures nothing posts no embed. Failures, restores, verification, missing-grid alerts, and recovery requests still post their own embeds.
+
 With `SendStartupWebhookTest=true`, Gridvault posts one green online test embed when a valid webhook is first configured. Run `!gridvault webhook test` for another test.
 
 ## Essentials and Migration

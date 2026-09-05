@@ -1,3 +1,11 @@
+# v0.5.1 - Consolidated Backup Audit Embed
+
+- Removed the per-grid "Grid backup saved" Discord embed that posted once for every backed-up grid, which flooded the audit channel during a pass.
+- Each backup pass now posts a single "Grid backup pass complete" summary embed (captured, unchanged, filtered, scanned, duration, and slowest grid).
+- The summary embed is sent only when a pass actually captures grids or hits failures, so quiet all-unchanged passes never touch the webhook.
+- Removed the redundant per-pass "started" embed; the in-game command reply still confirms a pass has begun.
+- Backup failures, restores, verification, missing-grid alerts, cleanup preservation, recovery requests, and pre-wipe/pre-cleanup events still post their own embeds.
+
 # v0.5.0 - Non-Blocking Backups and Change-Aware Vault
 
 - Fixed the server freeze during backup passes: grid capture no longer runs on the simulation thread in one blocking call.
