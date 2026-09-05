@@ -112,7 +112,7 @@ TROA-Gridvault-Backups/
 | `!gridvault help` | Shows GridVault player and administrator command guidance in game. |
 | `!gridvault mine` | Lists historical player grids once each with the latest name, ID, revision count, date, and block count. |
 | `!gridvault request <grid-name-or-id> [revision]` | Requests recovery by grid name or ID; quote names containing spaces, such as `!gridvault request "Mining Rover"`. Staff approval is required. |
-| `!gridvault category <grid-name-or-id> <Ship|Base|Mining|Combat|Other|None>` | Labels a personal grid-history entry. |
+| `!gridvault category <grid-name-or-id> <Ship\|Base\|Mining\|Combat\|Other\|None>` | Labels a personal grid-history entry. |
 
 ### Server Administrators
 
