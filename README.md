@@ -139,7 +139,7 @@ TROA-Gridvault-Backups/
 | `!gridvault capture <grid-id>` | Backs up one grid immediately. |
 | `!gridvault records <steam-id> [grid]` | Lists grid history and revisions. |
 | `!gridvault preview <steam-id> <grid-id> [revision]` | Shows backup details and original GPS. |
-| `!gridvault audit <steam-id>` | Verifies backup hashes and SBC readability. |
+| `!gridvault audit <steam-id>` | Verifies backup hashes and SBC readability. Runs in the background; the summary posts to the audit webhook and server log. |
 | `!gridvault health` | Shows storage usage, incomplete entries, and pending writes. |
 | `!gridvault export <steam-id>` | Copies a player vault into the migration export folder. |
 | `!gridvault import <steam-id> <folder-name>` | Imports a staged migration folder from GridVault Imports. |

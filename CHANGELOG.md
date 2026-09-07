@@ -1,3 +1,9 @@
+# v0.6.1 - Audit No Longer Freezes the Server
+
+- Fixed a server freeze/crash: `!gridvault audit <steam-id>` ran hash + full-grid deserialization for every stored backup on the game thread, which could exceed the Torch watchdog on large vaults and kill the server.
+- Verification now runs on a background thread; the command replies immediately and the summary posts to the audit webhook and the server log. The server keeps running throughout.
+- Added a guard so only one verification runs at a time, and the verification summary is now a structured embed (owner, valid, failed, total).
+
 # v0.6.0 - Player-Centric Restores, Hangar Handoff, and Friendlier Commands
 
 - Restores now land on the owning player: next to them when online, or handed to the TROA-Hanger plugin so the grid waits in their hangar when they are offline (retrieved with !hanger). If Hangar is not installed, the restore is held and deployed next to the player on their next login.
