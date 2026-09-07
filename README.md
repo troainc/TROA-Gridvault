@@ -152,6 +152,34 @@ TROA-Gridvault-Backups/
 | `!gridvault webhook` | Shows audit webhook status. |
 | `!gridvault webhook test` | Sends a test audit embed. |
 
+## Restoring a Grid (Step by Step)
+
+Restores are run by an administrator in the in-game chat (or through a secured Discord-to-Torch command bridge). A restored grid is placed on the **owning player**, and the stored backup is never consumed — you can restore it again later.
+
+1. **Find the grid and its owner.**
+   - Search every vault by name (wildcards `*` and `?` allowed): `!gridvault find Rover` or `!gridvault find "Mining *"`.
+   - Or list one player's grids: `!gridvault list <player-name-or-steamid>`. If two players share a name, use the SteamID.
+   - Faction-owned grids: `!gridvault list faction <tag>`.
+2. **Choose which backup.** List the numbered backups for that grid: `!gridvault list <player> <grid>`. Backup `1` is the newest, `2` the one before it, and so on. (Optional: `!gridvault preview <steam-id> <grid-id> [backup#]` shows blocks, size, and the original location.)
+3. **Restore it:** `!gridvault restore <player> <grid> [backup#]`
+   - Omit `[backup#]` to restore the latest.
+   - **Owner online** → the grid spawns in clear space next to them.
+   - **Owner offline** → the grid is placed in their TROA-Hanger hangar; they run `!hanger` to take it out when they next log in. (If Hangar is not installed, it deploys next to them automatically on their next login.)
+4. **Confirm.** GridVault replies in chat and posts an embed to the audit webhook (grid, owner, backup #, and where it went).
+
+### Restore options
+
+- **At the original location:** `!gridvault restore <player> <grid> <backup#> true` — pastes at the saved coordinates. If that spot is occupied you get a "potentially blocked" message and nothing is pasted.
+- **Force past a blocked spot:** `!gridvault restore <player> <grid> <backup#> true true` — pastes anyway (may overlap grids; use with care).
+- **Faction grid:** `!gridvault restore faction <tag> <grid> [backup#] [keepOriginalPos] [force]`.
+- **Next to yourself instead of the owner:** `!gridvault recover <steam-id> <grid-id> [backup#]`, or `!gridvault recoverat <steam-id> <grid-id> <x> <y> <z>` for exact GPS, or `!gridvault recoverorigin <steam-id> <grid-id>` for the saved location when clear.
+
+### Good to know
+
+- If a **live grid with the same entity ID still exists**, an in-world restore is refused to prevent a duplicate — delete or move the live grid first. (A hangar hand-off is unaffected.)
+- Restores run on the game thread in a single tick, so they never stall the server.
+- The stored backup always remains after a restore; restoring never deletes it.
+
 ## Important Configuration Defaults
 
 | Setting | Default | Reason |
