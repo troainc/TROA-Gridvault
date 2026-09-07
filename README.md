@@ -207,6 +207,7 @@ Restores are run by an administrator in the in-game chat (or through a secured D
 | `CleanupGridGraceMinutes` | `10` | Delay before a missing grid is treated as cleaned up or deleted. |
 | `RestoreOwnershipMode` | `Player` | `Player`, `Original`, or `Neutral` after recovery. |
 | `EnableAuditWebhook` | `false` | Webhook traffic is opt-in. |
+| `AdminCommandWebhookUrl` | empty | Optional separate webhook that logs every admin command used (who + full command); routes admin-command auditing to its own channel. Empty disables it. |
 
 ## Discord Audit Embeds
 

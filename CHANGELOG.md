@@ -1,3 +1,8 @@
+# v0.6.2 - Separate Admin-Command Webhook
+
+- Added `AdminCommandWebhookUrl`: an optional, separate Discord webhook that logs every `!gridvault` admin command used, with who ran it and the full command, so server owners can route admin-command auditing to its own channel.
+- Independent of `EnableAuditWebhook` and the audit failure circuit; leave it empty to disable admin-command logging. Backup/restore audit embeds still use `AuditWebhookUrl` as before.
+
 # v0.6.1 - Audit No Longer Freezes the Server
 
 - Fixed a server freeze/crash: `!gridvault audit <steam-id>` ran hash + full-grid deserialization for every stored backup on the game thread, which could exceed the Torch watchdog on large vaults and kill the server.

@@ -72,4 +72,6 @@
   <AuditWebhookUrl></AuditWebhookUrl>
   <!-- Sends one green startup test embed after this webhook is first configured. -->
   <SendStartupWebhookTest>true</SendStartupWebhookTest>
+  <!-- Optional separate Discord webhook that logs every admin command used (who ran it and the full command). Leave empty to disable. Independent of EnableAuditWebhook. -->
+  <AdminCommandWebhookUrl></AdminCommandWebhookUrl>
 </TROAGridVaultConfig>
