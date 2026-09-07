@@ -1,3 +1,16 @@
+# v0.6.0 - Player-Centric Restores, Hangar Handoff, and Friendlier Commands
+
+- Restores now land on the owning player: next to them when online, or handed to the TROA-Hanger plugin so the grid waits in their hangar when they are offline (retrieved with !hanger). If Hangar is not installed, the restore is held and deployed next to the player on their next login.
+- Added friendlier admin commands under the !gridvault prefix:
+  - `!gridvault find <name-or-id>` searches every vault, with `*` and `?` wildcards (capped by MaxFindResults).
+  - `!gridvault list <player-or-steamid> [grid]` and `!gridvault list faction <tag> [grid]` list a player's or faction's grids, or one grid's numbered backups.
+  - `!gridvault restore <player-or-steamid> <grid> [backup#] [keepOriginalPos] [force]` and the `restore faction <tag> ...` variant restore onto the owner. 1 is the latest backup; keepOriginalPos pastes at the saved location; force overrides a "potentially blocked" location.
+  - `!gridvault save` backs up the grid you are looking at; `!gridvault run` runs a full pass; `!gridvault clearup [confirm]` deletes backups older than RetainDays.
+- Restores, manual saves, and the "grid you are looking at" lookup run on the game thread through the same non-blocking pump added in v0.5.0, so single-grid operations never stall the simulation.
+- Hangar integration is a soft reflection-based dependency: GridVault still loads and runs if TROA-Hanger is absent or a different version, and never modifies or redeploys the Hangar plugin.
+- Audit webhooks for restore, hangar hand-off, pending-login deploy, manual save, and cleanup are now structured embeds with Grid/Owner/Backup fields and consistent colors; forced pastes are flagged.
+- Added config keys: PreferHangarForOfflineRestores, RestoreSpawnDistanceMeters, and MaxFindResults.
+
 # v0.5.1 - Consolidated Backup Audit Embed
 
 - Removed the per-grid "Grid backup saved" Discord embed that posted once for every backed-up grid, which flooded the audit channel during a pass.

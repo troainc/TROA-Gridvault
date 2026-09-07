@@ -31,6 +31,12 @@
   <SkipUnchangedGrids>true</SkipUnchangedGrids>
   <!-- Force a fresh backup of an unchanged grid after this many minutes as a safety refresh. Set 0 to never force. -->
   <ForceBackupAfterMinutes>1440</ForceBackupAfterMinutes>
+  <!-- When restoring a grid whose owner is offline, hand it to TROA-Hanger so it lands in the player's hangar. If false or Hangar is not installed, the restore deploys on the player's next login. -->
+  <PreferHangarForOfflineRestores>true</PreferHangarForOfflineRestores>
+  <!-- How far from a player (in meters) a restored grid is placed when spawning next to them. -->
+  <RestoreSpawnDistanceMeters>60</RestoreSpawnDistanceMeters>
+  <!-- Maximum results returned by a !gridvault find search across all vaults. -->
+  <MaxFindResults>50</MaxFindResults>
   <!-- Planned connected-grid controls. Leave defaults until the related feature is enabled. -->
   <IncludeMechanicallyConnectedGrids>true</IncludeMechanicallyConnectedGrids>
   <IncludeConnectorConnectedGrids>false</IncludeConnectorConnectedGrids>

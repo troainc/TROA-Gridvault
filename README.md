@@ -30,7 +30,8 @@ Gridvault does **not** install an in-game screen, terminal block, client mod, de
 - **Steam-ID-first backups** — player backup folders remain useful after world wipes and Keen identity changes.
 - **Grid history catalog** — qualifying player grids are tracked by Steam ID with known names, IDs, last-seen time, and retained-backup status.
 - **Readable files** — backups captured together share a readable `MMDDYYYY-HHMMSS/Grids` set, with full grid names and entity IDs for quick identification.
-- **Safer recovery** — preview a backup before restoring it, then restore near an admin, at exact GPS coordinates, or at the saved location.
+- **Player-centric restore** — restores land on the owning player: next to them when online, or in their TROA-Hanger hangar when offline (deployed on next login if Hangar is not installed). Admins can still restore near themselves, at exact GPS, or at the saved location.
+- **Easy lookup** — `!gridvault find` searches every vault by name/ID with wildcards; `!gridvault list` shows a player's or faction's grids and each grid's numbered backups.
 - **Collision protection** — restores use a conservative grid-size safety radius and refuse locations that are occupied.
 - **Player requests** — players can view their own backups and ask staff for a restore without receiving admin rights.
 - **Audit-ready** — optional Discord embeds track backups, restores, verification, failures, and player requests.
@@ -122,6 +123,14 @@ TROA-Gridvault-Backups/
 | `!gridvault reload` | Reloads configuration without restarting Torch. |
 | `!gridvault overview` | Shows backup queue and settings. |
 | `!gridvault storeall` | Backs up qualifying server grids. |
+| `!gridvault run` | Manually runs a full backup pass (same as `storeall`). |
+| `!gridvault save` | Backs up the grid you are looking at. |
+| `!gridvault find <name-or-id>` | Searches every vault; supports `*` and `?` wildcards. |
+| `!gridvault list <player-or-steamid> [grid]` | Lists a player's grids, or one grid's numbered backups. |
+| `!gridvault list faction <tag> [grid]` | Lists a faction's grids, or one grid's backups. |
+| `!gridvault restore <player-or-steamid> <grid> [backup#] [keepOriginalPos] [force]` | Restores onto the owner: next to them online, into their hangar when offline. `1` is the latest backup. |
+| `!gridvault restore faction <tag> <grid> [backup#] [keepOriginalPos] [force]` | Restores a faction member's grid onto its owner. |
+| `!gridvault clearup [confirm]` | Deletes backups older than `RetainDays` after a confirmation prompt. |
 | `!gridvault backupworld confirm` | Backs up every live world grid, bypassing minimum blocks, NPC/static settings, excluded names, quotas, and queue limits for that confirmed pass. Without `confirm`, it only displays a warning. |
 | `!gridvault archive` | Alias for `storeall`. |
 | `!gridvault safeguard` | Starts a backup pass before an external restart. |
@@ -156,6 +165,9 @@ TROA-Gridvault-Backups/
 | `ForceBackupAfterMinutes` | `1440` | Forces a refresh of an unchanged grid after this many minutes; `0` never forces. |
 | `MaxGridsPerTick` | `4` | Grids captured per simulation tick during a pass; lower spreads work over more ticks. |
 | `MaxCaptureMillisecondsPerTick` | `8` | Per-tick capture time budget; capture resumes next tick when spent. |
+| `PreferHangarForOfflineRestores` | `true` | Offline owner: hand the restore to TROA-Hanger; otherwise deploy on their next login. |
+| `RestoreSpawnDistanceMeters` | `60` | How far from a player a restored grid is placed when spawning next to them. |
+| `MaxFindResults` | `50` | Maximum results returned by `!gridvault find`. |
 | `IncludeNpcGrids` | `false` | NPC grids are not stored unless explicitly enabled. |
 | `IncludeStaticGrids` | `false` | Bases and static stations are not stored unless explicitly enabled. |
 | `EnablePlayerRecoveryRequests` | `true` | Players may request; only admins approve. |
