@@ -1,3 +1,10 @@
+# v0.7.0 - External Cleanup Capture API
+
+- Added `TROAGridVaultCleanupBridge`, a public API that lets an external cleanup plugin (such as TROA Cleaner+) preserve a specific live grid into the permanent `Cleanup Grids` vault immediately before that plugin removes it.
+- `TROAGridVaultCleanupBridge.TryPreserveCleanupGrid(long gridEntityId, string reason, out string error)` serializes the grid to `Cleanup Grids/Players/<owner>/<timestamp>/Grids/` with an SBC, SHA-256, read-back validation, and a `TROAGridVaultSnapshot` marked `IsCleanupArchive`, so the captured grid is discoverable and restorable through the normal `!gridvault` recovery commands. `IsAvailable` reports whether Gridvault+ is loaded and ready.
+- This complements the existing passive `EnableCleanupGridPreservation` watcher (which can only copy an already-retained backup): the new API also preserves grids Gridvault+ would never have backed up on a normal pass, for example grids under `MinimumBlocks` or excluded by name.
+- Consumers integrate by reflection with no compile-time dependency, mirroring how `TROAGridVaultHangarBridge` consumes TROA-Hanger. The call must run on the game thread. No behavior changes for existing installs; nothing calls the API unless another plugin does.
+
 # v0.6.2 - Separate Admin-Command Webhook
 
 - Added `AdminCommandWebhookUrl`: an optional, separate Discord webhook that logs every `!gridvault` admin command used, with who ran it and the full command, so server owners can route admin-command auditing to its own channel.
