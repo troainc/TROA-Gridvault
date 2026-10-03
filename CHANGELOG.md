@@ -163,3 +163,7 @@
 - Added Steam-ID-first folders, XML metadata, SHA-256 hashes, atomic backup publication, retention, and a bounded persistence queue.
 - Added list, verification, manual-save, and restore-near-administrator commands.
 - Defined the next-stage architecture for connected-grid grouping, richer restore previews, audit adapters, quotas, and player recovery requests.
+
+## Documentation update - 2026-10-03
+
+- Added a documentation landing page for server setup, backup policy, recovery workflow, commands, and optional Discord auditing.

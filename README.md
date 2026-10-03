@@ -287,3 +287,7 @@ Connected mechanical and connector grid grouping is not yet enabled. It will be 
 ## Support and Use
 
 Use of this release is subject to the included license. Report issues with the Gridvault version, Torch version, Space Engineers version, host OS, command used, and relevant Torch log excerpt. Do not include webhook URLs or private server data in public reports.
+
+## Documentation
+
+See [`docs/README.md`](docs/README.md) for a server-owner path through installation, configuration, backups, recovery, commands, and optional Discord auditing.
