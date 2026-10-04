@@ -1,12 +1,19 @@
-# Gridvault+ documentation
+# Gridvault+ Documentation
 
-Gridvault+ is a server-side Torch plugin for scheduled grid backups and controlled recovery. Players can inspect their own grid history and request help; administrators approve and perform restores.
+This handbook explains Gridvault+ for Space Engineers Torch servers. Gridvault+ runs on the server; players do not install a mod or use a separate app. Commands are entered in game chat. A server owner may optionally forward administrator commands through a secured command bridge.
 
-- Follow [Install](../README.md#install) and preserve the generated `TROAGridVault.cfg`.
-- Use the [player and administrator command reference](../README.md#commands).
-- Read [Restoring a Grid step by step](../README.md#restoring-a-grid-step-by-step) before using recovery commands.
-- Keep the backup directory documented in [Backup Folder Layout](../README.md#backup-folder-layout) in your server backup plan.
-- For Discord audits, use the webhook configuration and status commands in the README; the webhook is optional and does not require Monitor+.
-- Check [CHANGELOG.md](../CHANGELOG.md) for config and command changes.
+## Pick a guide
 
-Recommended first run: install the current release, start Torch to generate config, review capture filters/retention/storage location, run `!gridvault overview`, then test a backup and restore in a safe environment before relying on production recovery.
+- [Player guide](PLAYER-GUIDE.md) — find your grid history, label grids, and request a recovery.
+- [Server owner setup](SERVER-OWNER-SETUP.md) — install, configure backups, validate storage, and prepare safe recovery.
+- [Configuration reference](CONFIGURATION.md) — every setting in the public config example, with defaults and setup advice.
+- [Command reference](COMMANDS.md) — player and administrator command syntax.
+- [Recovery guide](RECOVERY.md) — search, preview, restore, and handle player requests safely.
+- [Migration guide](MIGRATION.md) — move backups from ALE GridBackup or another Gridvault server.
+- [Troubleshooting](TROUBLESHOOTING.md) — diagnose missing backups, restore failures, configuration, and Discord delivery.
+
+The complete credential-free XML example is [`TROAGridVault.cfg.example`](../TROAGridVault.cfg.example). The root [README](../README.md) is the feature overview; this handbook is the how-to documentation. Check [CHANGELOG](../CHANGELOG.md) and the [GitHub Releases](https://github.com/troainc/TROA-Gridvault/releases) page for version-specific changes and packages.
+
+## What Gridvault owns
+
+Gridvault+ owns grid backup files, grid history, recovery requests, restores, and its optional audit webhooks. Discord Monitor+ is not required and does not own or relay Gridvault's events. Another plugin may call Gridvault's documented integration API to request a backup before cleanup, but Gridvault retains its own vault and recovery commands.

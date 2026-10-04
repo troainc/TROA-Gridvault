@@ -5,6 +5,18 @@
 TROA-Gridvault is a no-UI, command-driven Torch plugin that protects Space Engineers grids with scheduled backups, Steam-ID-first storage, safe recovery tools, player recovery requests, and optional Discord audit embeds.
 
 This public repository provides release packages, operator documentation, and credential-free configuration examples.
+## Documentation handbook
+
+Use [`docs/README.md`](docs/README.md) to choose a task-focused guide:
+
+- [Player guide](docs/PLAYER-GUIDE.md)
+- [Server owner setup](docs/SERVER-OWNER-SETUP.md)
+- [Configuration reference](docs/CONFIGURATION.md)
+- [Command reference](docs/COMMANDS.md)
+- [Recovery guide](docs/RECOVERY.md)
+- [Migration guide](docs/MIGRATION.md)
+- [Troubleshooting](docs/TROUBLESHOOTING.md)
+
 
 ## Runtime Branding
 

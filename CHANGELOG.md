@@ -1,3 +1,7 @@
+# Documentation handbook - 2026-10-04
+
+- Added separate player, server-owner setup, configuration, commands, recovery, migration, and troubleshooting guides under `docs/`.
+- Linked the task-focused handbook prominently from the release README. The complete credential-free XML example remains available at `TROAGridVault.cfg.example`.
 # v0.7.0 - External Cleanup Capture API
 
 - Added `TROAGridVaultCleanupBridge`, a public API that lets an external cleanup plugin (such as TROA Cleaner+) preserve a specific live grid into the permanent `Cleanup Grids` vault immediately before that plugin removes it.
