@@ -1,3 +1,9 @@
+## Public operator documentation expansion - 2026-10-06
+
+- Added a detailed user guide under docs/USER_GUIDE.md and linked it from the documentation index and root README.
+- Documented current setup, feature ownership, command/config references, operational workflows, safety boundaries, and version/status limitations using the published behavior.
+- Added repository-local context, contribution instructions, and a dated documentation log entry. No private source or credentials are included.
+
 # Documentation handbook - 2026-10-04
 
 - Added separate player, server-owner setup, configuration, commands, recovery, migration, and troubleshooting guides under `docs/`.
@@ -171,3 +177,10 @@
 ## Documentation update - 2026-10-03
 
 - Added a documentation landing page for server setup, backup policy, recovery workflow, commands, and optional Discord auditing.
+## Documentation correction - 2026-10-06
+
+- Linked installation instructions directly to the published release page and clarified that local or untracked ZIPs are not approved release packages.
+- No source, package, or release version changed.
+- Added a public roadmap for package verification, restore preflight, recovery validation, and vault scale visibility.
+- Added the roadmap at the repository root and linked the README to it for consistent discovery.
+

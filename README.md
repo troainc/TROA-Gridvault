@@ -7,7 +7,7 @@ TROA-Gridvault is a no-UI, command-driven Torch plugin that protects Space Engin
 This public repository provides release packages, operator documentation, and credential-free configuration examples.
 ## Documentation handbook
 
-Use [`docs/README.md`](docs/README.md) to choose a task-focused guide:
+Use [`docs/README.md`](docs/README.md) to choose a task-focused guide, or read the [Gridvault+ roadmap](ROADMAP.md):
 
 - [Player guide](docs/PLAYER-GUIDE.md)
 - [Server owner setup](docs/SERVER-OWNER-SETUP.md)
@@ -78,7 +78,7 @@ Gridvault+ does not print Discord webhook delivery failures into the live Torch/
 
 ## Install
 
-1. Download the newest `TROAGridVault-v*.zip` from this repository's releases.
+1. Download the newest `TROAGridVault-v*.zip` from the [published GitHub Releases](https://github.com/troainc/TROA-Gridvault/releases/latest). Do not install a ZIP found in a source checkout or an untracked local folder; only a published release is an approved package.
 2. Stop Torch or unload the old Gridvault package.
 3. Install the plugin package using your host's normal Torch plugin process.
 4. Start Torch once; it creates `TROAGridVault.cfg` with explanations for every setting.
@@ -303,3 +303,9 @@ Use of this release is subject to the included license. Report issues with the G
 ## Documentation
 
 See [`docs/README.md`](docs/README.md) for a server-owner path through installation, configuration, backups, recovery, commands, and optional Discord auditing.
+
+
+## Documentation
+
+Use the [documentation index](docs/README.md) and [detailed operator guide](docs/USER_GUIDE.md) for setup, everyday use, feature behavior, and troubleshooting. Check the changelog and the current release before applying version-specific instructions.
+
