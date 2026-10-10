@@ -1,3 +1,5 @@
+> **Bifrost Plugin Panel:** In a compatible Admin Overseer release, open **Plugin systems → Open workspace** for TROA GridVault+. The [connection guide](docs/BIFROST-PLUGIN-PANEL.md) covers webserver setup, IPv4/domain access, accounts, permissions, and troubleshooting. Metrics and controls depend on what this installed plugin build actually exposes.
+
 # Gridvault+
 
 ## Modern Grid Backup and Recovery for Space Engineers Torch Servers
